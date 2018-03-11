@@ -85,15 +85,15 @@ class Preprocessor(object):
     
     def name(self, name):
         '''passenger.name -> (int)'''              
-        if 'Sir.' in name:
+        if 'sir.' in name:
             return 5
-        elif 'Dr.' in name:
+        elif 'dr.' in name:
             return 4
-        elif 'Mr.' in name:
+        elif 'mr.' in name:
             return 3
-        elif 'Mrs.' in name:
+        elif 'mrs.' in name:
             return 2
-        elif 'Miss' in name:
+        elif 'miss' in name:
             return 1
         else:
             return 0
