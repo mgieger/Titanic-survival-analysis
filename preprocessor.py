@@ -12,8 +12,8 @@ class Preprocessor(object):
             'Sex': Preprocessor.sex,
             'Embarked': Preprocessor.embarked,
             'Ticket': Preprocessor.ticket,
-            'Cabin': Preprocessor.zero
-            # ticket and cabin do not have preprocessing funcs
+            'Cabin': Preprocessor.cabin
+            # ticket and does not have preprocessing func
         }
         self.dataset_df = pd.read_csv(filename)
         self.processed_df = self._preprocess(self.dataset_df)
@@ -85,15 +85,15 @@ class Preprocessor(object):
     
     def name(self, name):
         '''passenger.name -> (int)'''              
-        if 'sir.' in name:
+        if 'sir.' in name.lower():
             return 5
-        elif 'dr.' in name:
+        elif 'dr.' in name.lower():
             return 4
-        elif 'mr.' in name:
+        elif 'mr.' in name.lower():
             return 3
-        elif 'mrs.' in name:
+        elif 'mrs.' in name.lower():
             return 2
-        elif 'miss' in name:
+        elif 'miss' in name.lower():
             return 1
         else:
             return 0
@@ -108,3 +108,22 @@ class Preprocessor(object):
     def zero(self, item):
         '''item -> 0 used for unknown fields'''
         return 0
+
+    def cabin(self, cabin):
+        '''passenger.cabin -> (int)'''
+        if 'T' or 'A' in cabin:
+            return 1
+        elif 'B' in cabin:
+            return 2
+        elif 'C' in cabin:
+            return 3
+        elif 'D' in cabin:
+            return 4
+        elif 'E' in cabin:
+            return 5
+        elif 'F' in cabin:
+            return 6
+        else:
+            return 7
+        
+    
