@@ -4,7 +4,7 @@ import os
 import pandas as pd
 import numpy as np
 from sklearn import datasets
-from preprocessor import Preprocessor
+from preprocessor2 import Preprocessor
 
 #import keras
 from keras.models import Sequential
@@ -30,8 +30,6 @@ def main():
     #     svc = SVC(cache_size=cache_size, max_iter=max_iterations)
     #     clf = GridSearchCV(svc, param_grid=parameters, cv=cv_size, return_train_score=True)
     #     results = clf.fit(data, labels)
-
-    data = 
 
 
 if __name__ == 'main':
