@@ -28,6 +28,20 @@ class Preprocessor(object):
         '''
         return np.nan_to_num(self.processed_df[cols].as_matrix())
 
+    def get_matrix_split(self, cols, row=800):
+        '''
+        Args:
+            cols (list): list of dataframe colums to retrieve
+            row: row to split dataframe on for training and test set
+        returns:
+            dictionary of np.arrays
+        '''
+        self.shuffle()
+        return {
+            "training": np.nan_to_num(self.processed_df[0:row][cols].as_matrix()),
+            "test": np.nan_to_num(self.processed_df[row:][cols].as_matrix())
+        }
+
     def get_matrix_scaled(self, cols, range=(0, 1)):
         '''
         Args:
@@ -127,3 +141,6 @@ class Preprocessor(object):
     def zero(item):
         '''item -> 0 used for unknown fields'''
         return 0
+
+    def shuffle(self):
+        self.procesed_df = self.processed_df.sample(frac=1)
