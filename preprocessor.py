@@ -107,22 +107,22 @@ class Preprocessor(object):
         except:
             return 0
 
-     def cabin(self, cabin):
-        '''passenger.cabin -> (int)'''
-        if 'T' or 'A' in cabin:
-            return 1
-        elif 'B' in cabin:
-            return 2
-        elif 'C' in cabin:
-            return 3
-        elif 'D' in cabin:
-            return 4
-        elif 'E' in cabin:
-            return 5
-        elif 'F' in cabin:
-            return 6
-        else:
-            return 7
+    def cabin(self, cabin):
+       '''passenger.cabin -> (int)'''
+       if 'T' or 'A' in cabin:
+           return 1
+       elif 'B' in cabin:
+           return 2
+       elif 'C' in cabin:
+           return 3
+       elif 'D' in cabin:
+           return 4
+       elif 'E' in cabin:
+           return 5
+       elif 'F' in cabin:
+           return 6
+       else:
+           return 7
 
     def zero(item):
         '''item -> 0 used for unknown fields'''
