@@ -14,7 +14,6 @@ class Preprocessor(object):
             'embarked': Preprocessor.embarked,
             'ticket': Preprocessor.ticket,
             'cabin': Preprocessor.zero
-            # ticket and cabin do not have preprocesing funcs
         }
         self.dataset_df = pd.read_csv(filename)
         self.processed_df = self._preprocess(self.dataset_df)
@@ -64,7 +63,7 @@ class Preprocessor(object):
         return _processed_df
 
     # preprocessing functions (as class funcs meh...)
-    def sex(sex):
+    def sex(self, sex):
         '''passenger.sex -> (int)'''
         if sex == 'female':
             return 1
@@ -73,7 +72,7 @@ class Preprocessor(object):
         else:
             return -1
 
-    def embarked(embarked):
+    def embarked(self, embarked):
         '''passenger.embarked -> (int)'''
         if embarked == 'S':
             return 0
@@ -85,7 +84,7 @@ class Preprocessor(object):
             return 3
 
 #TODO: play around with change values for classes  -- investigate bias here
-    def name(name):
+    def name(self, name):
         """passenger.name -> (int)"""
         if 'Sir.' in name:
             return 5
@@ -100,7 +99,7 @@ class Preprocessor(object):
         else:
             return 0
 
-    def ticket(ticket):
+    def ticket(self, ticket):
         '''passenger.ticket -> (int)'''
         try:
             return int(ticket)
@@ -124,6 +123,6 @@ class Preprocessor(object):
        else:
            return 7
 
-    def zero(item):
+    def zero(self, item):
         '''item -> 0 used for unknown fields'''
         return 0
