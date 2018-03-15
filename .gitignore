@@ -1,0 +1,12 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Generated files #
+.idea
+.DS_Store
+__pycharm__
+
+# Compiled source #
+*.class
+*.pyc
