@@ -4,6 +4,7 @@ from sklearn.externals.six import StringIO
 from sklearn.tree import export_graphviz
 import pydotplus
 #import matplotlib.pyplot as plt
+import os
 
 
 
@@ -50,10 +51,12 @@ class DecisionTreeRunner(object):
 
     def graph_results(self):
         print("PlaceHolder")  # TODO: implement
-        dot_data = StringIO()
-        export_graphviz(self.clf, out_file=dot_data, filled=True, rounded=True, special_characters=True)
-        # graph = pydotplus.graph_from_dot_data(dot_data.getvalue())
+        #dot_data = StringIO()
+        export_graphviz(self.clf.estimators_[0], filled=True, rounded=True, special_characters=True)
+        #graph = pydotplus.graph_from_dot_data(dot_data.getvalue())
         # Image(graph.create_png())
+        #print(self.clf.estimators_)
+        #os.system('dot -Tpng tree.dot -o tree.png')
 
 
     def score(self):
