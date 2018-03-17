@@ -10,3 +10,5 @@ __pycharm__
 # Compiled source #
 *.class
 *.pyc
+
+myVenv/*

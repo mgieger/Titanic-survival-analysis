@@ -19,7 +19,7 @@ class Preprocessor(object):
         }
         self.dataset_df = pd.read_csv(filename)
         self.processed_df = self._preprocess(self.dataset_df)
-        print("data frame shape", self.processed_df.shape) #todo remove
+        #print("data frame shape", self.processed_df.shape) #todo remove
         # print(self.processed_df)
 	    
     def get_matrix(self, cols):
