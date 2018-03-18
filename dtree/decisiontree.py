@@ -50,7 +50,6 @@ class DecisionTreeRunner(object):
         self.accuracy = np.trace(self.confusion_matrix) / np.sum(self.confusion_matrix)
 
     def graph_results(self):
-        print("PlaceHolder")  # TODO: implement
         #dot_data = StringIO()
         export_graphviz(self.clf.estimators_[0], filled=True, rounded=True, special_characters=True)
         #graph = pydotplus.graph_from_dot_data(dot_data.getvalue())
