@@ -86,11 +86,11 @@ def main():
     print("\n extreme random")
     results_rf_1_ext = run_experiment(data_perm_1, extreme_rand_rfc)
 
-
     print("\n ")
     pprint.pprint(experiment_result_dicts)
 
 
+#TODO: modify to write results to file
 def run_experiment(data_perm, rfc):
     """
 
