@@ -8,7 +8,7 @@ import os
 
 
 
-class DecisionTreeRunner(object):
+class EnsembleRunner(object):
     def __init__(self, data, clf):
         training_data = data["training"]
         testing_data = data["test"]

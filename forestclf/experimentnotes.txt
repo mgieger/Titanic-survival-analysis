@@ -1,7 +1,7 @@
 Macknezie's note:
     Before normalization/standardization attempts: accuracy was low 70.05%
     Attempting to use MinMaScalar to standardize the data and the accuracy dropped to 50%
-    Accuracy is now at 71.71% using default decision tree using sklern Normalizer()
+    Accuracy is now at 71.71% using default random forest using sklern Normalizer()
 
 
 Random Experiment Results:  -- No real strategy employed -- just tried to experiment with
@@ -15,12 +15,10 @@ perm 1 est = 4
  0.16572072]
 0.7092337917485265
 
-
 perm 1 est = 4
 [0.09360033 0.13957649 0.38616546 0.16734597 0.0444947  0.
  0.16881706]
 0.6777996070726916
-
 
 perm 1 est = 10,
 [0.11044275 0.14889277 0.34170025 0.16396146 0.05457189 0.
@@ -37,13 +35,11 @@ perm 1 est = 10
  0.18606531]
 0.7170923379174853
 
-
 Depth change:
 perm 1 depth = 2
 [0.13175326 0.24904745 0.27467061 0.09887683 0.         0.
  0.24565185]
 0.7269155206286837
-
 
 perm 1 depth = 3
 [0.08201113 0.13085522 0.51035563 0.0649718  0.01451032 0.
@@ -59,7 +55,6 @@ perm 1 depth = 6
 [0.11287249 0.14886972 0.46593474 0.07838467 0.02731952 0.
  0.16661886]
 0.6817288801571709
-
 
 perm 1 default
     data_perm_1 = preprocessor.get_matrix_split(['sex', 'age', 'ticket', 'fare', 'pclass', 'name', 'sibsp', 'parch',  'embarked', 'survived']) #2
@@ -144,33 +139,33 @@ perm 1 combo 1
  0.05293821 0.09444701 0.02871982]
 0.724950884086444
 
-
+combo1
 [0.55356296 0.02434531 0.01166023 0.17224872 0.0531627  0.09109564
  0.0072345  0.08668994]
 0.7131630648330058
 
-
+combo1
 [0.07947096 0.12995853 0.49610234 0.06296306 0.01228744 0.
  0.21921768]
 0.7485265225933202
 
-
+combo1
 [0.78707354 0.06587172 0.01359923 0.13345552 0.        ]
 0.7603143418467584
 
-
+combo1
 [0.7855387  0.05483171 0.00987686 0.14975273]
 0.7445972495088409
 
-
+combo1
 [0.38936458 0.08039    0.0513861  0.47885932]
 0.6660117878192534
 
-
+combo1
 [0.60354563 0.27777989 0.11867448]
 0.7445972495088409
 
-
+combo1
 [0.41951697 0.29287459 0.28760844]
 0.7013752455795678
 
@@ -178,6 +173,3 @@ perm 1 combo 1
 [0.56469483 0.04552926 0.00413793 0.13165234 0.02486409 0.05678682
  0.05293821 0.09452449 0.02487203]
 0.7387033398821218
-
-
-
