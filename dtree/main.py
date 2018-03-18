@@ -36,6 +36,7 @@ def main():
     preprocessor = Preprocessor(full_file)
     data_perm_1 = preprocessor.get_matrix_split(['sex', 'age', 'ticket', 'fare', 'pclass', 'name', 'sibsp', 'parch',  'embarked', 'survived']) #2
     data_perm_5 = preprocessor.get_matrix_split(['sex', 'age', 'ticket', 'fare', 'survived'])  #2
+    data_perm_4 = preprocessor.get_matrix_split(['sex', 'age', 'ticket', 'fare','cabin', 'survived'])
     data_perm_10 = preprocessor.get_matrix_split(['sex', 'age', 'fare', 'name', 'survived']) #suprisingly the worst despite
     data_perm_9 = preprocessor.get_matrix_split(['sex', 'age', 'survived']) # 1) best b4 tuning - but two parameters seems useless
     #being made up of the features that were deemed to have the highest immportance
@@ -70,7 +71,6 @@ def main():
     results_tree_1_combo_1 = run_experiment(data_perm_1, combo_1_rfc)
     print("\ncombo exp perm 1")
 
-    #TODO: use perm 5 to try to optimize for best results
     print("\nperm 5 combo 1")
     results_tree_5_combo_1 = run_experiment(data_perm_5, combo_1_rfc)
 
@@ -79,6 +79,10 @@ def main():
 
     print("\nperm 10 combo 1")
     results_tree_10_combo_1 = run_experiment(data_perm_10, combo_1_rfc)
+
+    #TODO: use perm 4 to try to optimize for best results
+    print("\nperm 4 combo 1")
+    results_tree_4_combo_1 = run_experiment(data_perm_4, combo_1_rfc)
 
     print("\n extreme random")
     results_tree_1_ext = run_experiment(data_perm_1, extreme_rand_rfc)
