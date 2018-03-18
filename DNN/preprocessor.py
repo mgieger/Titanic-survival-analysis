@@ -27,6 +27,7 @@ class Preprocessor(object):
         '''
         return np.nan_to_num(self.processed_df[cols].as_matrix())
 
+
     def get_matrix_split(self, cols, row=800):
         '''
         Args:
@@ -39,7 +40,7 @@ class Preprocessor(object):
         return {
             "training": np.nan_to_num(self.processed_df[0:row][cols].as_matrix()),
             "test": np.nan_to_num(self.processed_df[row:][cols].as_matrix())
-        }
+    }
 
 
     def get_matrix_scaled(self, cols, range=(0, 1)):
@@ -78,7 +79,7 @@ class Preprocessor(object):
         return _processed_df
 
     # preprocessing functions (as class funcs meh...)
-    def sex(self, sex):
+    def sex(sex):
         '''passenger.sex -> (int)'''
         if sex == 'female':
             return 1
@@ -87,7 +88,7 @@ class Preprocessor(object):
         else:
             return -1
 
-    def embarked(self, embarked):
+    def embarked(embarked):
         '''passenger.embarked -> (int)'''
         if embarked == 'S':
             return 0
@@ -99,7 +100,7 @@ class Preprocessor(object):
             return 3
 
 #TODO: play around with change values for classes  -- investigate bias here
-    def name(self, name):
+    def name(name):
         """passenger.name -> (int)"""
         if 'Sir.' in name:
             return 5
@@ -114,14 +115,14 @@ class Preprocessor(object):
         else:
             return 0
 
-    def ticket(self, ticket):
+    def ticket(ticket):
         '''passenger.ticket -> (int)'''
         try:
             return int(ticket)
         except:
             return 0
 
-    def cabin(self, cabin):
+    def cabin(cabin):
        '''passenger.cabin -> (int)'''
        if 'T' or 'A' in cabin:
            return 1
@@ -138,7 +139,7 @@ class Preprocessor(object):
        else:
            return 7
 
-    def zero(self, item):
+    def zero(item):
         '''item -> 0 used for unknown fields'''
         return 0
 
