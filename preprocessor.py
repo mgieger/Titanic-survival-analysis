@@ -18,6 +18,7 @@ class Preprocessor(object):
         self.dataset_df = pd.read_csv(filename)
         self.processed_df = self._preprocess(self.dataset_df)
 
+        
     def get_matrix(self, cols):
         '''
         Args:
@@ -27,6 +28,7 @@ class Preprocessor(object):
         '''
         return np.nan_to_num(self.processed_df[cols].as_matrix())
 
+      
     def get_matrix_split(self, cols, row=800):
         '''
         Args:
@@ -58,6 +60,7 @@ class Preprocessor(object):
                                              copy=False
                                              )
 
+    
     def get_dataframe(self):
         '''
         Returns:
@@ -65,6 +68,7 @@ class Preprocessor(object):
         '''
         return self.dataset_df.copy(deep=True)
 
+      
     def _preprocess(self, original_df):
         '''
         Args:
@@ -77,8 +81,9 @@ class Preprocessor(object):
 	        _processed_df[field] = _processed_df[field].apply(self.preprocessing_map[field])
         return _processed_df
 
+      
     # preprocessing functions (as class funcs meh...)
-    def sex(self, sex):
+    def sex(sex):
         '''passenger.sex -> (int)'''
         if sex == 'female':
             return 1
@@ -87,7 +92,8 @@ class Preprocessor(object):
         else:
             return -1
 
-    def embarked(self, embarked):
+          
+    def embarked(embarked):
         '''passenger.embarked -> (int)'''
         if embarked == 'S':
             return 0
@@ -98,8 +104,9 @@ class Preprocessor(object):
         else:
             return 3
 
+          
 #TODO: play around with change values for classes  -- investigate bias here
-    def name(self, name):
+    def name(name):
         """passenger.name -> (int)"""
         if 'Sir.' in name:
             return 5
@@ -114,14 +121,16 @@ class Preprocessor(object):
         else:
             return 0
 
-    def ticket(self, ticket):
+          
+    def ticket(ticket):
         '''passenger.ticket -> (int)'''
         try:
             return int(ticket)
         except:
             return 0
 
-    def cabin(self, cabin):
+          
+    def cabin(cabin):
        '''passenger.cabin -> (int)'''
        if 'T' or 'A' in cabin:
            return 1
@@ -138,7 +147,8 @@ class Preprocessor(object):
        else:
            return 7
 
-    def zero(self, item):
+        
+    def zero(item):
         '''item -> 0 used for unknown fields'''
         return 0
 
