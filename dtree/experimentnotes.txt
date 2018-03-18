@@ -1,6 +1,6 @@
 Macknezie's note:
     Before normalization/standardization attempts: accuracy was low 70.05%
-    Attempting to use MinMaScalar to standardize the data and hte accuracy dropped to 50%
+    Attempting to use MinMaScalar to standardize the data and the accuracy dropped to 50%
     Accuracy is now at 71.71% using default decision tree using sklern Normalizer()
 
 
