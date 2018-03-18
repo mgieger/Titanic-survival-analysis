@@ -21,7 +21,7 @@ class DecisionTreeRunner(object):
         self.confusion_matrix = np.zeros((2, 2))
         self.clf = clf
         self.accuracy = 0
-        self.results = dict()
+        self.prediction_results = dict()
         self.failed_predictions = dict()
 
     def run(self):
@@ -33,7 +33,7 @@ class DecisionTreeRunner(object):
             # log_prob = int(self.clf.predict_log_proba(test_data[i]))
             actual = int(self.test_labels[i])
             self.confusion_matrix[predicted][actual] += 1
-            self.results[i] = {
+            self.prediction_results[i] = {
                 'predicted_survival': predicted,
                 'actual': actual
             }
@@ -61,8 +61,8 @@ class DecisionTreeRunner(object):
     def score(self):
         return self.clf.score(self.test, self.test_labels)  # TODO: test
 
-    def feature_importance(self):
-        return self.clf.feature_importances_
+    def print_feature_importance(self):
+        print(self.clf.feature_importances_)
 
     def print_accuracy(self):
         print(self.accuracy)
