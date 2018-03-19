@@ -31,9 +31,7 @@ def save_data(directory, file_name, results, file_type='.json'):
 
 
 def main():
-   
     #Reading in the data, preprocessing it, and creating training and test sets.
-
     full_file = '../titanic_full.csv'
     columns = [
         'pclass',
@@ -55,7 +53,7 @@ def main():
     
     train_data, train_labels = data[:TRAIN_SIZE,:-1], data[:TRAIN_SIZE,-1:]
     test_data, test_labels = data[TRAIN_SIZE:,:-1], data[TRAIN_SIZE:,-1]
-         
+
     ####Sequence of creating neural networks to analyze Titanic dataset. 
     # We tested various models of:
     # 1-4 layers
@@ -71,6 +69,7 @@ def main():
 
     ##Create the 1 layer model.
     np.random.seed(79)
+    
     model1 = Sequential()
     model1.add(Dense(units = 10, input_dim = 10, activation='sigmoid', use_bias=True))
     model1.add(Dropout(0.30, seed=None))
@@ -95,6 +94,7 @@ def main():
 
     ##Create 2 layer model.
     np.random.seed(79)
+    
     model2 = Sequential()
     model2.add(Dense(units = 10, input_dim = 10, activation='sigmoid', use_bias=True))
     model2.add(Dropout(0.312))
@@ -120,6 +120,7 @@ def main():
 
     ##Create 3 layer model.
     np.random.seed(79)
+    
     model3 = Sequential()
     model3.add(Dense(units = 10, input_dim = 10, activation='sigmoid', use_bias=True))
     model3.add(Dropout(0.31075, seed=None))
