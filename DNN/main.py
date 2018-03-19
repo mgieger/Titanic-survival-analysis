@@ -13,10 +13,27 @@ import pandas as pd
 from sklearn.metrics import classification_report, confusion_matrix
 
 
+def save_data(directory, file_name, results, file_type='.json'):
+    '''
+    Saves performance data to:
+        directory/file_name: raw data
+        results (dict | pd.dataframe):
+        file_type (string): .json or .csv
+    '''
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    
+    if file_type == '.json':
+        with open(file_name + file_type, 'w') as f:
+            json.dump(results, f)
+    elif file_type == '.csv':
+        results.to_csv(file_name + file_type, index=False)
+
+
 def main():
-    np.random.seed(79)
    
     #Reading in the data, preprocessing it, and creating training and test sets.
+
     full_file = '../titanic_full.csv'
     columns = [
         'pclass',
@@ -31,14 +48,14 @@ def main():
         'embarked',
         'survived'
     ]
+
     preprocessor = Preprocessor(full_file)
     data = preprocessor.get_matrix_scaled(columns)
     TRAIN_SIZE = math.ceil(data.shape[0]*.70)
     
     train_data, train_labels = data[:TRAIN_SIZE,:-1], data[:TRAIN_SIZE,-1:]
     test_data, test_labels = data[TRAIN_SIZE:,:-1], data[TRAIN_SIZE:,-1]
-
-    
+         
     ####Sequence of creating neural networks to analyze Titanic dataset. 
     # We tested various models of:
     # 1-4 layers
@@ -53,6 +70,7 @@ def main():
     sgd = optimizers.SGD(lr=0.05, momentum=0.9)
 
     ##Create the 1 layer model.
+    np.random.seed(79)
     model1 = Sequential()
     model1.add(Dense(units = 10, input_dim = 10, activation='sigmoid', use_bias=True))
     model1.add(Dropout(0.30, seed=None))
@@ -76,6 +94,7 @@ def main():
     
 
     ##Create 2 layer model.
+    np.random.seed(79)
     model2 = Sequential()
     model2.add(Dense(units = 10, input_dim = 10, activation='sigmoid', use_bias=True))
     model2.add(Dropout(0.312))
@@ -100,6 +119,7 @@ def main():
 
 
     ##Create 3 layer model.
+    np.random.seed(79)
     model3 = Sequential()
     model3.add(Dense(units = 10, input_dim = 10, activation='sigmoid', use_bias=True))
     model3.add(Dropout(0.31075, seed=None))
