@@ -13,7 +13,7 @@ class Preprocessor(object):
             'sex': Preprocessor.sex,
             'embarked': Preprocessor.embarked,
             'ticket': Preprocessor.ticket,
-            'cabin': Preprocessor.zero
+            'cabin': Preprocessor.cabin
         }
         self.dataset_df = pd.read_csv(filename)
         self.processed_df = self._preprocess(self.dataset_df)
@@ -142,6 +142,15 @@ class Preprocessor(object):
     def zero(item):
         '''item -> 0 used for unknown fields'''
         return 0
+
+    def sibsp(item):
+        return item
+
+    def parch(item):
+        return item
+    
+    def fare(item):
+        return item
 
     def shuffle(self):
         self.procesed_df = self.processed_df.sample(frac=1)
