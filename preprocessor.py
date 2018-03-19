@@ -83,7 +83,7 @@ class Preprocessor(object):
 
       
     # preprocessing functions (as class funcs meh...)
-    def sex(sex):
+    def sex(self, sex):
         '''passenger.sex -> (int)'''
         if sex == 'female':
             return 1
@@ -92,7 +92,7 @@ class Preprocessor(object):
         else:
             return -1
 
-          
+      
     def embarked(embarked):
         '''passenger.embarked -> (int)'''
         if embarked == 'S':
@@ -106,7 +106,7 @@ class Preprocessor(object):
 
           
 #TODO: play around with change values for classes  -- investigate bias here
-    def name(name):
+    def name(self, name):
         """passenger.name -> (int)"""
         if 'Sir.' in name:
             return 5
@@ -121,7 +121,7 @@ class Preprocessor(object):
         else:
             return 0
 
-          
+  
     def ticket(ticket):
         '''passenger.ticket -> (int)'''
         try:
@@ -152,5 +152,6 @@ class Preprocessor(object):
         '''item -> 0 used for unknown fields'''
         return 0
 
+      
     def shuffle(self):
         self.procesed_df = self.processed_df.sample(frac=1)

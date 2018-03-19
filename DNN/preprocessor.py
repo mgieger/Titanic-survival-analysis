@@ -13,11 +13,12 @@ class Preprocessor(object):
             'sex': Preprocessor.sex,
             'embarked': Preprocessor.embarked,
             'ticket': Preprocessor.ticket,
-            'cabin': Preprocessor.zero
+            'cabin': Preprocessor.cabin
         }
         self.dataset_df = pd.read_csv(filename)
         self.processed_df = self._preprocess(self.dataset_df)
 
+        
     def get_matrix(self, cols):
         '''
         Args:
@@ -66,6 +67,7 @@ class Preprocessor(object):
         '''
         return self.dataset_df.copy(deep=True)
 
+      
     def _preprocess(self, original_df):
         '''
         Args:
@@ -78,6 +80,7 @@ class Preprocessor(object):
 	        _processed_df[field] = _processed_df[field].apply(self.preprocessing_map[field])
         return _processed_df
 
+      
     # preprocessing functions (as class funcs meh...)
     def sex(sex):
         '''passenger.sex -> (int)'''
@@ -88,6 +91,7 @@ class Preprocessor(object):
         else:
             return -1
 
+          
     def embarked(embarked):
         '''passenger.embarked -> (int)'''
         if embarked == 'S':
@@ -99,6 +103,7 @@ class Preprocessor(object):
         else:
             return 3
 
+          
 #TODO: play around with change values for classes  -- investigate bias here
     def name(name):
         """passenger.name -> (int)"""
@@ -115,6 +120,7 @@ class Preprocessor(object):
         else:
             return 0
 
+          
     def ticket(ticket):
         '''passenger.ticket -> (int)'''
         try:
@@ -122,6 +128,7 @@ class Preprocessor(object):
         except:
             return 0
 
+          
     def cabin(cabin):
        '''passenger.cabin -> (int)'''
        if 'T' or 'A' in cabin:
@@ -139,9 +146,23 @@ class Preprocessor(object):
        else:
            return 7
 
+        
     def zero(item):
         '''item -> 0 used for unknown fields'''
         return 0
 
+      
+    def sibsp(item):
+        return item
+
+      
+    def parch(item):
+        return item
+    
+    
+    def fare(item):
+        return item
+
+      
     def shuffle(self):
         self.procesed_df = self.processed_df.sample(frac=1)
