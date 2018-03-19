@@ -83,7 +83,7 @@ class Preprocessor(object):
 
       
     # preprocessing functions (as class funcs meh...)
-    def sex(self, sex):
+    def sex(sex):
         '''passenger.sex -> (int)'''
         if sex == 'female':
             return 1
@@ -106,7 +106,7 @@ class Preprocessor(object):
 
           
 #TODO: play around with change values for classes  -- investigate bias here
-    def name(self, name):
+    def name(name):
         """passenger.name -> (int)"""
         if 'Sir.' in name:
             return 5
