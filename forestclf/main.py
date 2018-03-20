@@ -25,7 +25,6 @@ def main():
         ] """
     full_file = '../titanic_full.csv'
     
-    feature_list = ['sex', 'age', 'ticket', 'fare', 'pclass', 'name', 'sibsp', 'parch', 'embarked', 'survived']
     feature_list = ['sex', 'age', 'ticket', 'fare', 'pclass', 'name', 'sibsp', 'parch', 'embarked']
     survived = 'survived'
     
@@ -90,24 +89,37 @@ def main():
                             "feature_list": j,
                             "classifier": k
                         }
-                        experiment_failed_results[high_performers[high_perf_count]]: failed_results
+                        experiment_failed_results[high_performers[high_perf_count]] = failed_results
                         high_perf_count += 1
     
     print("MAX:")
     print(max_dict)
     print(" # of High performers: ", high_perf_count)
-    pprint.pprint(high_performers)
+    # pprint.pprint(high_performers)
     
-    for key in experiment_failed_results:
-        print("test of key in experiment_dicts: ", key)
-        text.write("%s: %f\n", key, experiment_failed_results[key]) #TODO: fix and resume work
+    #
+    # #non biased feature list -- 77.21% accuracy  -- classifier default rfc-
+    nb_feature_list = preprocessor.get_matrix_split(['sex', 'age', 'pclass', 'parch', 'survived'])
+    pred_results, acc, failed_results = run_experiment(nb_feature_list, default_rfc)
+    experiment_failed_results.append(failed_results)
+
+    # # 80.15% accuracy -- boost
+    opt_feature_list = preprocessor.get_matrix_split(['name', 'embarked', 'survived'])
+    pred_results, acc, failed_results = run_experiment(opt_feature_list, default_rfc)
+    experiment_failed_results.append(failed_results)
+
+    feature_list = preprocessor.get_matrix_split(['sex', 'age', 'ticket', 'fare', 'pclass', 'name', 'sibsp', 'parch',
+                                                  'embarked', 'survived'])
+    pred_results, acc, failed_results = run_experiment(feature_list,
+                                                       default_rfc,
+                                                       create_graph=False,
+                                                       print_confusion_matrix=True)
+    experiment_failed_results.append(failed_results)
+
+    # # pprint.pprint(experiment_failed_results) #TODO: keep or remove
 
 
-# data_perm_4 = preprocessor.get_matrix_split(['sex', 'age', 'ticket', 'fare','cabin', 'survived'])#
-# print("\nperm 4 combo 1")
-# results_rf_4_combo_1 = run_experiment(data_perm_4, combo_1_rfc)
-
-def run_experiment(data_perm, rfc):
+def run_experiment(data_perm, rfc, create_graph = False, print_confusion_matrix = False):
     """
 
     :param data_perm:
@@ -115,9 +127,16 @@ def run_experiment(data_perm, rfc):
     :return: dict containing experiment results
     """
     dtr = EnsembleRunner(data_perm, rfc)
+    print("running experiment for ", rfc)
     dtr.run()
     dtr.print_feature_importance()
     dtr.print_accuracy()
+    if create_graph is True:
+        dtr.graph_results()
+
+    if print_confusion_matrix is True:
+        print(dtr.confusion_matrix)
+    print("\n")
     return dtr.prediction_results, dtr.accuracy, dtr.failed_predictions
 
 
