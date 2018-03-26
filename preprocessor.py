@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import sklearn as sk
-
+from sklearn.preprocessing import Normalizer
 pd.options.mode.chained_assignment = None
 
 class Preprocessor(object):
@@ -18,7 +18,6 @@ class Preprocessor(object):
         self.dataset_df = pd.read_csv(filename)
         self.processed_df = self._preprocess(self.dataset_df)
 
-        
     def get_matrix(self, cols):
         '''
         Args:
@@ -28,7 +27,7 @@ class Preprocessor(object):
         '''
         return np.nan_to_num(self.processed_df[cols].as_matrix())
 
-      
+
     def get_matrix_split(self, cols, row=800):
         '''
         Args:
@@ -57,10 +56,8 @@ class Preprocessor(object):
         return sk.preprocessing.minmax_scale(self.get_matrix(cols),
                                              feature_range=(0, 1),
                                              axis=0,
-                                             copy=False
-                                             )
+                                             copy=False)
 
-    
     def get_dataframe(self):
         '''
         Returns:
@@ -155,3 +152,6 @@ class Preprocessor(object):
       
     def shuffle(self):
         self.procesed_df = self.processed_df.sample(frac=1)
+
+def normalize(data):
+ return Normalizer().fit_transform(data)

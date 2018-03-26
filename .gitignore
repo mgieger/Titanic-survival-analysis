@@ -7,6 +7,11 @@ __pycache__/
 .DS_Store
 __pycharm__
 
+
+
 # Compiled source #
 *.class
 *.pyc
+
+myVenv/*
+venv/
