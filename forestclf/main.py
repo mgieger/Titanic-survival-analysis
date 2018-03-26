@@ -29,7 +29,6 @@ def main():
     survived = 'survived'
     
     default_rfc = RandomForestClassifier(random_state=0)
-    warmstart_rfc = RandomForestClassifier(warm_start=True)
     random_rfc = RandomForestClassifier(random_state=1)
     est_rfc = RandomForestClassifier(n_estimators=10, random_state=0)
     depth_rfc = RandomForestClassifier(max_depth=3, random_state=0)
@@ -39,7 +38,6 @@ def main():
     
     classifier_dict = {
         "default_rfc": default_rfc,
-        # "warmstart_rfc": warmstart_rfc,
         "random_rfc": random_rfc,
         "est_rfc": est_rfc,
         "depth_rfc": depth_rfc,
@@ -59,13 +57,6 @@ def main():
     high_perf_count = 0
     experiment_failed_results = []
     
-    text = open("../forestclf/failedresults.txt", 'w')
-    
-    experiments_tried_map = dict
-    
-    # TODO: to make more efficient -- scale features just once instead of for each feature set-- need to rework preprocessor
-    ## ^ will be done over spring break ##
-    
     if sys.argv.__contains__("-brute"):
         for k in classifier_dict:
             for i in range(len(feature_list)):
@@ -73,7 +64,7 @@ def main():
                     continue
                 for j in iter.combinations(feature_list, i):
                     # create hash key to avoid running same experiments with diff orders of same feature
-
+                    
                     j = list(j)
                     j.append(survived)
                     data = preprocessor.get_matrix_split(list(j))
@@ -91,23 +82,25 @@ def main():
                         }
                         experiment_failed_results[high_performers[high_perf_count]] = failed_results
                         high_perf_count += 1
+        
+        print("MAX:")
+        print(max_dict)
+        print(" # of High performers: ", high_perf_count)
+        pprint.pprint(high_performers)
     
-    print("MAX:")
-    print(max_dict)
-    print(" # of High performers: ", high_perf_count)
-    # pprint.pprint(high_performers)
-    
-    #
+    print("Default random forest classifier - feature set ['sex', 'age', 'pclass', 'parch', 'survived'] ")
     # #non biased feature list -- 77.21% accuracy  -- classifier default rfc-
     nb_feature_list = preprocessor.get_matrix_split(['sex', 'age', 'pclass', 'parch', 'survived'])
     pred_results, acc, failed_results = run_experiment(nb_feature_list, default_rfc)
     experiment_failed_results.append(failed_results)
-
+    
     # # 80.15% accuracy -- boost
+    print("Default gradient boosting classifier - feature set['name', 'embarked', 'survived']")
     opt_feature_list = preprocessor.get_matrix_split(['name', 'embarked', 'survived'])
     pred_results, acc, failed_results = run_experiment(opt_feature_list, default_rfc)
     experiment_failed_results.append(failed_results)
-
+    
+    print("Default random forest classifier with full feature set")
     feature_list = preprocessor.get_matrix_split(['sex', 'age', 'ticket', 'fare', 'pclass', 'name', 'sibsp', 'parch',
                                                   'embarked', 'survived'])
     pred_results, acc, failed_results = run_experiment(feature_list,
@@ -115,11 +108,15 @@ def main():
                                                        create_graph=False,
                                                        print_confusion_matrix=True)
     experiment_failed_results.append(failed_results)
+    
+    if sys.argv.__contains__("-failed"):
+        pprint.pprint(experiment_failed_results)
+    
+    if sys.argv.__contains__("-show"):
+        pprint.pprint(pred_results)
 
-    # # pprint.pprint(experiment_failed_results) #TODO: keep or remove
 
-
-def run_experiment(data_perm, rfc, create_graph = False, print_confusion_matrix = False):
+def run_experiment(data_perm, rfc, create_graph=False, print_confusion_matrix=False):
     """
 
     :param data_perm:
@@ -133,14 +130,12 @@ def run_experiment(data_perm, rfc, create_graph = False, print_confusion_matrix 
     dtr.print_accuracy()
     if create_graph is True:
         dtr.graph_results()
-
+    
     if print_confusion_matrix is True:
         print(dtr.confusion_matrix)
     print("\n")
     return dtr.prediction_results, dtr.accuracy, dtr.failed_predictions
 
-
-# compared failed predictions, are there any outliers who are consistent across all models?
 
 def get_hash(feature_list, k):
     """
@@ -153,8 +148,9 @@ def get_hash(feature_list, k):
     for feature in range(len(feature_list)):
         hash_key += hash(feature_list[feature])
     hash_key = hash_key + hash(k)
-    print("\nhash key for classifier ", k, " and list ", feature_list, " : ", hash_key) #TODO: remove
+    print("\nhash key for classifier ", k, " and list ", feature_list, " : ", hash_key)  # TODO: remove
     return hash_key
+
 
 if __name__ == '__main__':
     main()

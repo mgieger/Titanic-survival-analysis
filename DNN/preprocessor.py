@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import sklearn as sk
-from sklearn.preprocessing import Normalizer
+
 pd.options.mode.chained_assignment = None
 
 class Preprocessor(object):
@@ -13,11 +13,12 @@ class Preprocessor(object):
             'sex': Preprocessor.sex,
             'embarked': Preprocessor.embarked,
             'ticket': Preprocessor.ticket,
-            'cabin': Preprocessor.zero
+            'cabin': Preprocessor.cabin
         }
         self.dataset_df = pd.read_csv(filename)
         self.processed_df = self._preprocess(self.dataset_df)
 
+        
     def get_matrix(self, cols):
         '''
         Args:
@@ -40,7 +41,7 @@ class Preprocessor(object):
         return {
             "training": np.nan_to_num(self.processed_df[0:row][cols].as_matrix()),
             "test": np.nan_to_num(self.processed_df[row:][cols].as_matrix())
-        }
+    }
 
 
     def get_matrix_scaled(self, cols, range=(0, 1)):
@@ -56,7 +57,8 @@ class Preprocessor(object):
         return sk.preprocessing.minmax_scale(self.get_matrix(cols),
                                              feature_range=(0, 1),
                                              axis=0,
-                                             copy=False)
+                                             copy=False
+                                             )
 
     def get_dataframe(self):
         '''
@@ -89,7 +91,7 @@ class Preprocessor(object):
         else:
             return -1
 
-      
+          
     def embarked(embarked):
         '''passenger.embarked -> (int)'''
         if embarked == 'S':
@@ -118,7 +120,7 @@ class Preprocessor(object):
         else:
             return 0
 
-  
+          
     def ticket(ticket):
         '''passenger.ticket -> (int)'''
         try:
@@ -150,8 +152,17 @@ class Preprocessor(object):
         return 0
 
       
+    def sibsp(item):
+        return item
+
+      
+    def parch(item):
+        return item
+    
+    
+    def fare(item):
+        return item
+
+      
     def shuffle(self):
         self.procesed_df = self.processed_df.sample(frac=1)
-
-def normalize(data):
- return Normalizer().fit_transform(data)
