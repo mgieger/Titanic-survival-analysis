@@ -20,6 +20,7 @@ def save_data(directory, file_name, results, file_type='.json'):
         results (dict | pd.dataframe):
         file_type (string): .json or .csv
     '''
+
     if not os.path.exists(directory):
         os.makedirs(directory)
     
@@ -31,7 +32,12 @@ def save_data(directory, file_name, results, file_type='.json'):
 
 
 def main():
-    #Reading in the data, preprocessing it, and creating training and test sets.
+    """
+    Reads in the data, preprocesses it, and uses the training and test data sets to train
+    the three neural networks. Then each neural network analyzes the data set to predict
+    the survival outcome of each passenger.
+    """
+    
     full_file = '../titanic_full.csv'
     columns = [
         'pclass',
@@ -54,12 +60,12 @@ def main():
     train_data, train_labels = data[:TRAIN_SIZE,:-1], data[:TRAIN_SIZE,-1:]
     test_data, test_labels = data[TRAIN_SIZE:,:-1], data[TRAIN_SIZE:,-1]
 
-    ####Sequence of creating neural networks to analyze Titanic dataset. 
+    # Sequence of creating neural networks to analyze Titanic dataset. 
     # We tested various models of:
     # 1-4 layers
     # 4, 8, and 10 nodes per layer
     # With and without dropout; using dropout values of 0.2, 0.3, 0.4
-    # For the sake of expediting the script run time only the best sequences 
+    # For the sake of expediting the script run time only the best sequences
     # we found for 1-3 layers were included. 
     # All 4 layer models would always predict the passenger to perish, 
     # so these models were not kept, as they were not useful.
@@ -67,7 +73,7 @@ def main():
     target_names = ['Class 0: Perished', 'Class 1: Survived']
     sgd = optimizers.SGD(lr=0.05, momentum=0.9)
 
-    ##Create the 1 layer model.
+    ## Create the 1 layer model.
     np.random.seed(79)
     
     model1 = Sequential()
